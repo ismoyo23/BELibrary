@@ -2,7 +2,7 @@
 this is a library project back end API application using node js Framework
 Build Setup
 
-    Clone repository $ git clone https://github.com/regaaji/ninja-ibrary-app.git
+    Clone repository $ git clone https://github.com/ismoyo23/Library-App.git
 
     Install depedencies
 
@@ -47,3 +47,6 @@ Aplication Structure
     src/routes - Route of our app going here
     src/helpers - This folder contain file that help you simplify your code such as define the error handling
     src/controllers - This folder contain configuration files that links Models to Route
+    
+    
+ COPYRIGHT BY M ISMOYO SETYONOWIDAGDO
