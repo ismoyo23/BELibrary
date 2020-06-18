@@ -19,6 +19,7 @@ module.exports = {
             let setData = {
                 id_books: request.body.id_books,
                 id_user: request.body.id_user,
+                count: request.body.count,
                 status: request.body.status
             }
             let result = await BorrowerModels.CreateBorrowerModels(setData)
@@ -34,6 +35,7 @@ module.exports = {
             let setData = {
                 id_books: request.body.id_books,
                 id_user: request.body.id_user,
+                count: request.body.count,
                 status: request.body.status
             }
             let result = await BorrowerModels.UpdateBorrowerModels(id, setData)
