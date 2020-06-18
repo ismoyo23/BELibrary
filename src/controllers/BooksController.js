@@ -6,12 +6,21 @@ module.exports = {
             try{
                 // conditions for paginations, search, sort
                 let author = request.query.name_author == null ? '' : 'WHERE author.name_author LIKE "%'+request.query.name_author+'%"'
-
                 let sort = request.query.sort == null ? '' : ' ORDER BY book_detail.id '+request.query.sort
-
                 let page = request.query.page == null ? '' : ' LIMIT '+request.query.page
 
                 let result = await BooksModels.AllBooksModel(author, sort, page);
+                // my logic
+                // looping for conditions status
+                for(i = 0; i < result[0].length; i++){
+                    if(result[i].stok.length < 1){
+                        result[i].status = 'Unvailable'
+    
+                    }else{
+                        result[i].status = 'Availabe'
+                    }
+                }
+                
                 return helper.response(response, 'success', result, 201)
             }catch(error){
                 console.log(error)
@@ -25,9 +34,9 @@ module.exports = {
             title: request.body.title,
             discription: request.body.discription,
             image: request.file.path,
+            stok: request.body.stok,
             id_genre: request.body.id_genre,
-            status: request.body.status,
-            id_author: request.body.id_author,   
+            id_author: request.body.id_author
         }
         try{
             let result = await BooksModels.CreateBooksModel(setData)
@@ -43,6 +52,7 @@ module.exports = {
                 title: request.body.title,
                 discription: request.body.discription,
                 image: request.file.path,
+                stok: request.body.stok,
                 id_genre: request.body.id_genre,
                 status: request.body.status,
                 id_author: request.body.id_author   
@@ -50,8 +60,10 @@ module.exports = {
             let id = request.params.id
             try{
                 let PathImage = await BooksModels.GetBooksById(id)
+                // fs unlink for delete image on storage
                 fs.unlink(PathImage[0].image, async function (err) {
                 let result = await BooksModels.UpdateBooksModel(setData, id)
+            
                 return helper.response(response, 'success', result, 201)
                 });  
             }catch(error){
@@ -64,8 +76,12 @@ module.exports = {
         DeleteBooks: async function(request, response){
             try{
                 let id = request.params.id
-                let result = await BooksModels.DeleteBooks(id)
-                return helper.response(response, 'success', result, 201)
+                let PathImage = await BooksModels.GetBooksById(id)
+                // fs unlink for delete image on storage
+                fs.unlink(PathImage[0].image, async function (err) {
+                    let result = await BooksModels.DeleteBooksModels(id)
+                    return helper.response(response, 'success', result, 201)
+                })
             }catch(error){
                 console.log(RangeError)
                 return helper.response(response, 'failed', 'internal server error', 500)
