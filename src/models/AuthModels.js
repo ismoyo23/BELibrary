@@ -7,7 +7,11 @@ module.exports = {
                 if(error){
                     reject(error)
                 }else{
-                    resolve(result)
+                    let newData= {
+                    id: result.insertId,
+                    ...setData
+                }
+                resolve(newData)
                 }
             })
         })

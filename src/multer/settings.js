@@ -10,6 +10,6 @@ let storage = multer.diskStorage({
 });
 
 // function file size for image
-let upload = multer({ storage: storage })
+let upload = multer({ storage: storage, limits: {fieldSize : 1000000} })
 
 module.exports = upload

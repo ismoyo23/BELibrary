@@ -1,11 +1,11 @@
 let express = require('express')
 let router = express.Router()
 let AuthorController = require('../controllers/AuthorController')
-let AuthMidleware = require('../midleware/auth')
+let AuthMidleware = require('../midleware/Auth')
 
-router.get('/',AuthMidleware.verifyLibrarianToken, AuthorController.GetAllAuthor)
-router.post('/',AuthMidleware.verifyLibrarianToken, AuthorController.CreateAuthor)
-router.put('/:id',AuthMidleware.verifyLibrarianToken, AuthorController.UpdateAuthor)
-router.delete('/:id',AuthMidleware.verifyLibrarianToken, AuthorController.DeleteAuthor)
+router.get('/', AuthorController.GetAllAuthor)
+router.post('/', AuthorController.CreateAuthor)
+router.put('/:id', AuthorController.UpdateAuthor)
+router.delete('/:id', AuthorController.DeleteAuthor)
 
 module.exports = router

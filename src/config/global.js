@@ -5,8 +5,7 @@ let config = {
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE
     },
-    jwtSecretKey: process.env.JWT_SECRET,
-    jwtLibrarianKey: process.env.JWT_SECRET_LIBRARIAN
+    jwtSecretKey: process.env.JWT_SECRET
 }
 
 module.exports = config;

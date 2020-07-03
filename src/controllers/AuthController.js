@@ -36,28 +36,17 @@ module.exports = {
             let tokenData = {
                 ...result[0]
         }
+        
         if(result[0].role == 0){
             // role 0 is user
             let AccessToken = jwt.sign(tokenData, config.jwtSecretKey, { expiresIn: '2d' })
-            result[0].AccessTokenUser = AccessToken
-
-            let RefreshToken = jwt.sign(tokenData, config.jwtSecretKey, { expiresIn: '4d' })
-            result[0].RefreshTokenUser = RefreshToken
+            result[0].AccessToken = AccessToken
+            
         }else{
-            // role 1 librarian
-            let AccessToken = jwt.sign(tokenData, config.jwtLibrarianKey, { expiresIn: '2d' })
-            result[0].AccessTokenLibrarian = AccessToken
-
-            let RefreshToken = jwt.sign(tokenData, config.jwtLibrarianKey, { expiresIn: '4d' })
-            result[0].RefreshTokenLibrarian = RefreshToken
-
-            let AccessTokenUser = jwt.sign(tokenData, config.jwtSecretKey, { expiresIn: '2d' })
-            result[0].AccessTokenUser = AccessTokenUser
-
-            let RefreshTokenUser = jwt.sign(tokenData, config.jwtSecretKey, { expiresIn: '4d' })
-            result[0].RefreshTokenUser = RefreshTokenUser
+            // role 1 is Librarian
+            let AccessToken = jwt.sign(tokenData, config.jwtSecretKey, { expiresIn: '2d' })
+            result[0].AccessToken = AccessToken
         }
-
             return helper.response(response, 'success', result, 201)
         }else{
             return helper.response(response, 'failed', 'Username or password wrong', 201)
@@ -69,5 +58,19 @@ module.exports = {
             return helper.response(response, 'failed', 'internal server error', 500)
         }
         
+    },
+
+    RefreshToken: (request, response)=>{
+        let verify = request.headers.authorization
+        const decoded = jwt.verify(verify, config.jwtSecretKey);
+        delete decoded.exp
+        delete decoded.iat
+            let tokenData = {
+                ...decoded
+        }
+        let AccessToken = jwt.sign(tokenData, config.jwtSecretKey, { expiresIn: '5d' })
+        decoded.RefreshToken = AccessToken
+
+        return helper.response(response, 'success', decoded, 201)
     }
 }

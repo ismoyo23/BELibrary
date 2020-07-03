@@ -3,7 +3,6 @@ let app = express()
 require('dotenv').config()
 let BodyParser = require('body-parser')
 let cors = require('cors')
-
 let morgan = require('morgan')
 app.use(morgan('dev'))
 
@@ -17,17 +16,12 @@ let path = require('path')
 
 app.use(express.static('./ser/upload/'))
 app.use(express.static('./src/upload/'))
+app.use('/src', express.static(path.join(__dirname + '/src')))
 let router = require('./src/index')
 
-// settings cors
-var corsOptions = {
-    origin: 'http://127.0.0.1:3000/books',
-    optionsSuccessStatus: 200 
-  }
 
 // use cors
 app.use(cors('*'))
-app.options(cors(corsOptions))
 
 app.use('/', cors(), router)
 

@@ -1,11 +1,12 @@
 let express = require('express')
 let router = express.Router()
 let GenreController = require('../controllers/GenreController')
-let AuthMidleware = require('../midleware/auth')
+let AuthMidleware = require('../midleware/Auth')
+const jwt = require('jsonwebtoken');
 
-router.get('/',AuthMidleware.verifyLibrarianToken, GenreController.GetAllGenre)
-router.post('/',AuthMidleware.verifyLibrarianToken, GenreController.CreateGenre)
-router.put('/:id',AuthMidleware.verifyLibrarianToken, GenreController.UpdateGenre)
-router.delete('/:id',AuthMidleware.verifyLibrarianToken, GenreController.DeleteGenre)
+router.get('/', GenreController.GetAllGenre)
+router.post('/', GenreController.CreateGenre)
+router.put('/:id', GenreController.UpdateGenre)
+router.delete('/:id', GenreController.DeleteGenre)
 
 module.exports = router
