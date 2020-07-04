@@ -5,7 +5,7 @@ module.exports = {
     GetAllBooks: async function(request, response){
             try{
                 // conditions for paginations, search, sort
-<<<<<<< HEAD
+
                 let param = {
                     byfield: request.query.search == null ? '' : 'WHERE '+request.query.field+' LIKE "%'+request.query.search+'%"',
                     sort: request.query.sort == null ? '' : ' ORDER BY book_detail.id '+request.query.sort,
@@ -17,7 +17,7 @@ module.exports = {
                  return helper.response(response, 'success', result, 201)
                
                 
-=======
+
                 let author = request.query.name_author == null ? '' : 'WHERE author.name_author LIKE "%'+request.query.name_author+'%"'
                 let sort = request.query.sort == null ? '' : ' ORDER BY book_detail.id '+request.query.sort
                 let page = request.query.page == null ? '' : ' LIMIT '+request.query.page
@@ -35,7 +35,6 @@ module.exports = {
                 }
                 
                 return helper.response(response, 'success', result, 201)
->>>>>>> 4e36525732a72df14add9dd9a716be9556c6c7df
             }catch(error){
                 console.log(error)
                 return helper.response(response, 'fail', 'Internal Server Error', 500)
@@ -95,11 +94,11 @@ module.exports = {
                 // fs unlink for delete image on storage
                 fs.unlink(PathImage[0].image, async function (err) {
                     let result = await BooksModels.DeleteBooksModels(id)
-<<<<<<< HEAD
+
                     return helper.response(response, 'success', 'success delete id =' + id, 201)
-=======
+
                     return helper.response(response, 'success', result, 201)
->>>>>>> 4e36525732a72df14add9dd9a716be9556c6c7df
+
                 })
             }catch(error){
                 console.log(RangeError)
