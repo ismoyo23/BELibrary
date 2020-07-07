@@ -13,28 +13,7 @@ module.exports = {
                 }
                 
                 let result = await BooksModels.AllBooksModel(param);
-            
                  return helper.response(response, 'success', result, 201)
-               
-                
-
-                let author = request.query.name_author == null ? '' : 'WHERE author.name_author LIKE "%'+request.query.name_author+'%"'
-                let sort = request.query.sort == null ? '' : ' ORDER BY book_detail.id '+request.query.sort
-                let page = request.query.page == null ? '' : ' LIMIT '+request.query.page
-
-                let result = await BooksModels.AllBooksModel(author, sort, page);
-                // my logic
-                // looping for conditions status
-                for(i = 0; i < result[0].length; i++){
-                    if(result[i].stok.length < 1){
-                        result[i].status = 'Unvailable'
-    
-                    }else{
-                        result[i].status = 'Availabe'
-                    }
-                }
-                
-                return helper.response(response, 'success', result, 201)
             }catch(error){
                 console.log(error)
                 return helper.response(response, 'fail', 'Internal Server Error', 500)

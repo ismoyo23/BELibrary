@@ -19,10 +19,8 @@ module.exports = {
       }else{
         return helper.response(response, 'fail', 'Invalid token!', 401);
       }
-<<<<<<< HEAD:src/midleware/Auth.js
-=======
+
       next();
->>>>>>> 4e36525732a72df14add9dd9a716be9556c6c7df:src/midleware/auth.js
     } catch (error) {
       if(error.name === 'TokenExpiredError') {
         return helper.response(response, 'fail', 'Token expired!', 401);
@@ -56,8 +54,7 @@ module.exports = {
     }
   }
   
-<<<<<<< HEAD:src/midleware/Auth.js
+
 };
-=======
-};
->>>>>>> 4e36525732a72df14add9dd9a716be9556c6c7df:src/midleware/auth.js
+
+

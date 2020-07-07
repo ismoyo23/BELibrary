@@ -1,9 +1,9 @@
 let conn = require('../helper/mysql')
 
 module.exports = {
-    GetGenreModels: function(){
+    GetGenreModels: function(byField){
         return new Promise((resolve, reject) => {
-            conn.query('SELECT * FROM genre', function(error,result){
+            conn.query(`SELECT * FROM genre${byField}`, function(error,result){
                 if(error){
                     reject(error)
                 }
@@ -20,7 +20,6 @@ module.exports = {
                     reject(error)
                 }
                 let newData= {
-                    id: result.insertId,
                     ...SetData
                 }
                 resolve(newData)
@@ -30,10 +29,9 @@ module.exports = {
         })
     },
 
-    UpdateGenreModels: function(setData, id){
+    UpdateGenreModels: function(id, setData){
         return new Promise((resolve,reject)=> {
-  
-        conn.query('UPDATE genre SET name_genre = "'+setData+'" WHERE id_genre = "'+id+'"', function(error, result){
+        conn.query(`UPDATE genre SET name_genre = '${setData}' WHERE id_genre = '${id}'`, function(error, result){
   
           if(error) {
               reject(error)

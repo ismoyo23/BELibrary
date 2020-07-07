@@ -4,8 +4,9 @@ let GenreModels = require('../models/GenreModels')
 
 module.exports = {
     GetAllGenre: async function(request, response){
+        let byFile = request.query.field == null ? '' : ` WHERE ${request.query.field} LIKE "%${request.query.search}%"`
         try{
-            let result = await GenreModels.GetGenreModels()
+            let result = await GenreModels.GetGenreModels(byFile)
             return helper.response(response, 'success', result, 201)
         }catch(error){
             console.log(error)

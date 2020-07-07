@@ -4,8 +4,9 @@ let AuthorModels = require('../models/AuthorModels')
 
 module.exports = {
     GetAllAuthor: async function(request, response){
+        let byfield = request.query.field == null ? '' : `WHERE ${request.query.field} LIKE "%${request.query.search}%"`
         try{
-            let result = await AuthorModels.GetAuthorModels()
+            let result = await AuthorModels.GetAuthorModels(byfield)
             return helper.response(response, 'success', result, 201)
         }catch(error){
             console.log(error)

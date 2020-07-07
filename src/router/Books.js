@@ -6,7 +6,9 @@ let AuthMidleware = require('../midleware/Auth')
 
 router.get('/', BooksController.GetAllBooks)
 router.post('/', upload.single('image'), BooksController.CreateBooks)
-router.put('/:id', AuthMidleware.LibrarianKey, upload.single('image'), BooksController.UpdateBooks)
-router.delete('/:id', AuthMidleware.LibrarianKey, BooksController.DeleteBooks)
+router.put('/:id',  upload.single('image'), BooksController.UpdateBooks)
+router.delete('/:id', BooksController.DeleteBooks)
 
 module.exports = router
+
+// AuthMidleware.LibrarianKey
