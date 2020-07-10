@@ -3,7 +3,7 @@ let conn = require('../helper/mysql')
 module.exports = {
     AllBooksModel: function(param){
         return new Promise((resolve, reject)=>{
-                conn.query('SELECT id, book_detail.id_genre, book_detail.id_author, title, discription, stok, image, name_author, profile_author, name_genre FROM book_detail INNER JOIN genre ON book_detail.id_genre = genre.id_genre INNER JOIN author ON book_detail.id_author = author.id_author '+param.byfield + param.sort + param.page, function(error, result){
+                conn.query(`SELECT id, book_detail.id_genre, book_detail.id_author, title, discription, stok, image, name_author, profile_author, name_genre FROM book_detail INNER JOIN genre ON book_detail.id_genre = genre.id_genre INNER JOIN author ON book_detail.id_author = author.id_author ${param.byfield}${param.sort}${param.page}`, function(error, result){
                     if(error){
                         reject(error)
                     }

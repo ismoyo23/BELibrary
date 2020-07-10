@@ -7,9 +7,9 @@ module.exports = {
                 // conditions for paginations, search, sort
 
                 let param = {
-                    byfield: request.query.search == null ? '' : 'WHERE '+request.query.field+' LIKE "%'+request.query.search+'%"',
-                    sort: request.query.sort == null ? '' : ' ORDER BY book_detail.id '+request.query.sort,
-                    page: request.query.page == null ? '' : ' LIMIT '+request.query.page
+                    byfield: request.query.search == null ? '' : `WHERE ${request.query.field} LIKE "%${request.query.search}%"`,
+                    sort: request.query.sort == null ? '' : ` ORDER BY book_detail.id ${request.query.sort}`,
+                    page: request.query.page == null ? '' : `  LIMIT 12 OFFSET ${request.query.page}`
                 }
                 
                 let result = await BooksModels.AllBooksModel(param);
